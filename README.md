@@ -7,8 +7,8 @@ Logging utility that supports multiple log targets with different levels. The ai
 Anything can be a log target that implements the `io.Writer` interface.
 
 For example, this is how you can set up a console and file log target:
-```
-import log "github.com/palette-software/insight-tester/common/logging"
+```golang
+import log "github.com/palette-software/go-log-targets/logging"
 
 func main() {
   ...
@@ -40,14 +40,14 @@ func main() {
 ```
 
 ## Splunk log target via HTTP(S)
-In this repo you can find a Splunk log target. Although there are several implementations out there with which you can log into [Splunk], but we haven't found anything which does it over HTTP(S), thus we implemented one for ourselves.
+In this repo you can find a [Splunk] log target. Although there are several implementations out there with which you can log into [Splunk], but we haven't found anything which does it over HTTP(S), thus we implemented one for ourselves.
 
 Here is how you can add a Splunk logger to your logs:
-```
+```golang
 splunkLogger, err := log.NewSplunkTarget(SplunkServerAddress, SplunkHTTPEventCollectorToken, owner)
 if err != nil {
   defer splunkLogger.Close()
-  log.AddTarget(splunkLogger, log.LevelInfo)
+  log.AddTarget(splunkLogger, log.LevelWarning)
 }
 ```
 
