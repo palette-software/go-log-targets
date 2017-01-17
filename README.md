@@ -40,7 +40,7 @@ func main() {
 ```
 
 ## Splunk log target via HTTP(S)
-In this repo you can find a [Splunk] log target. Although there are several implementations out there with which you can log into [Splunk], but we haven't found anything which does it over HTTP(S), thus we implemented one for ourselves.
+In this repo you can find a [Splunk] log target. Although there are several implementations out there with which you can log into [Splunk], but we haven't found anything which does it over HTTP(S), thus we implemented one for ourselves. Here you can read a bit about [Splunk HTTP Event Collector](http://dev.splunk.com/view/event-collector/SP-CAAAE7F).
 
 Here is how you can add a Splunk logger to your logs:
 ```golang
