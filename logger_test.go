@@ -65,7 +65,7 @@ func (suite *LoggerTestSuite) Test_MultipleTargetsButTriggerOnlyOne() {
 	Info("One ring above all")
 }
 
-func (suite *LoggerTestSuite) Test_MultipleTargetsButTriggerBoth() {
+func (suite *LoggerTestSuite) Test_MultipleTargetsAndTriggerBoth() {
 	AddTarget(os.Stdout, LevelDebug)
 	AddTarget(os.Stderr, LevelError)
 	Error("Get together and feel alright")
@@ -83,7 +83,7 @@ type LoggerMockSuite struct {
 	mockTargetA *MockWriter
 	mockTargetB *MockWriter
 	mockTargetC *MockWriter
-	mockOs *MockOs
+	mockOs      *MockOs
 }
 
 // Initialize some mocks
@@ -120,6 +120,16 @@ func (suite *LoggerMockSuite) Test_CallOnlyRelevantTargets() {
 	AddTarget(suite.mockTargetC, LevelInfo)
 
 	Info("Useless, but true information.")
+}
+
+func (suite *LoggerMockSuite) Test_WarningLevel() {
+	suite.mockTargetA.On("Write", mock.Anything).Return(33, nil)
+	suite.mockTargetB.On("Write", mock.Anything).Return(33, nil)
+
+	AddTarget(suite.mockTargetA, LevelDebug)
+	AddTarget(suite.mockTargetB, LevelInfo)
+	AddTarget(suite.mockTargetC, LevelError)
+	Warning("Watch out")
 }
 
 func (suite *LoggerMockSuite) Test_Fatal() {

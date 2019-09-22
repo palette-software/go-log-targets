@@ -9,8 +9,8 @@ import (
 
 const (
 	LevelDebug LogLevel = iota
-	LevelWarning
 	LevelInfo
+	LevelWarning
 	LevelError
 	LevelFatal
 )
