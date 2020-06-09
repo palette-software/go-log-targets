@@ -164,6 +164,35 @@ func (suite *LoggerMockSuite) Test_Fatalf() {
 	suite.mockOs.AssertNumberOfCalls(suite.T(), "Exit", 1)
 }
 
+func (suite *LoggerMockSuite) Test_Writef() {
+	// Return value doesn't matter as we don't use it now anywhere
+	suite.mockTargetA.On("Write", mock.Anything).Return(33, nil)
+	// suite.mockTargetB.On("Write", mock.Anything).Return(33, nil)
+	suite.mockTargetC.On("Write", mock.Anything).Return(33, nil)
+
+	AddTarget(suite.mockTargetA, LevelDebug)
+	AddTarget(suite.mockTargetB, LevelError)
+	AddTarget(suite.mockTargetC, LevelInfo)
+
+	Writef(LevelInfo, "Writing log: %d", 77)
+}
+
+func (suite *LoggerMockSuite) Test_WriteFatalf() {
+	// Return value doesn't matter as we don't use it now anywhere
+	suite.mockTargetA.On("Write", mock.Anything).Return(33, nil)
+	suite.mockTargetB.On("Write", mock.Anything).Return(33, nil)
+	suite.mockTargetC.On("Write", mock.Anything).Return(33, nil)
+	suite.mockOs.On("Exit", 1)
+
+	AddTarget(suite.mockTargetA, LevelDebug)
+	AddTarget(suite.mockTargetB, LevelError)
+	AddTarget(suite.mockTargetC, LevelInfo)
+
+	Writef(LevelFatal, "Writing fatal: %d", 666)
+
+	suite.mockOs.AssertNumberOfCalls(suite.T(), "Exit", 1)
+}
+
 // Now run the mock suite
 func Test_LoggerMockSuite(t *testing.T) {
 	suite.Run(t, new(LoggerMockSuite))

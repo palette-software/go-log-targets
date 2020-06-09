@@ -106,6 +106,10 @@ func Fatalf(format string, v ...interface{}) {
 	printAllf(LevelFatal, format, v...)
 }
 
+func Writef(logLevel LogLevel, format string, v ...interface{}) {
+	printAllf(logLevel, format, v...)
+}
+
 // Private implementations
 func printAll(level LogLevel, v ...interface{}) {
 	if loggers == nil {
