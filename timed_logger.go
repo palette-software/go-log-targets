@@ -23,7 +23,6 @@ func NewTimedLogger(level LogLevel, format string, v ...interface{}) *TimedLogge
 }
 
 func (tl *TimedLogger) LogEnd() {
-	tl.end = time.Now()
 	Writef(tl.level, fmt.Sprintf("%v - END  (elapsed %v ms)", tl.message, getElapsedTimeInMilliseconds(tl.start)))
 }
 
